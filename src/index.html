@@ -1,56 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Kuppalista</title>
+    <link rel="manifest" href="/kuppalista.webmanifest" />
     <style type="text/css">
-body {
-  text-align: center;
-}
+      html {
+        font-size: 18px;
+      }
 
-#list div.item {
-  background-color: #eee;
-  border: 1px solid #555;
-  margin: 8px 0px;
-  padding: 4px 10%;
-  border-radius: 4px;
-}
+      body {
+        text-align: center;
+        padding: 0px 8vw;
+        background-color: #ecebf2;
+      }
 
-#list div.item:hover {
-  box-shadow: inset -1px -1px 1px 1px #ccc;
-}
+      #container {
+        max-width: 420px;
+        padding: 2vh 0px;
+        margin: 0 auto;
+      }
 
-#list div.target {
-  border: 1px dashed #000 !important;
-}
+      #list div.item {
+        background-color: #f5f5f5;
+        margin: 8px 0px;
+        padding: 6px 10%;
+        border-radius: 4px;
+      }
 
-#list div.checked {
-  text-decoration: line-through;
-  text-shadow: 2px 2px 8px #888;
-  color: #777;
-  border: 1px dotted #000;
-}
+      #list div.item:hover {
+        box-shadow: inset -1px -1px 1px 1px #ccc;
+      }
 
-#list div span {
-  padding: 4px 20px;
-}
+      #list div.target {
+        transition: 100ms ease-in;
+        background-color: #f7f7f7;
+        border-left: 6px #999 solid;
+        border-right: 6px #999 solid;
+        cursor: move;
+      }
 
-#list div span:hover {
-  text-shadow: 1px 1px 4px #999;
-}
+      #list div.checked {
+        text-decoration: line-through;
+        text-shadow: 2px 2px 8px #888;
+        color: #777;
+      }
 
-#add {
-  background-color: #ccc;
-  background-image: linear-gradient(to bottom, #eee, #ccc);
-  width: 100%;
-  padding: 4px;
-  margin-bottom: 4px;
-}
+      #list div span {
+        display: block;
+        height: 30px;
+        box-sizing: border-box;
+        padding: 4px 20px;
+      }
 
-.hidden {
-  display: none;
-}
+      #list div span:hover {
+        text-shadow: 1px 1px 4px #999;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      button .icon {
+        margin-right: 6px;
+        vertical-align: middle;
+      }
+
+      button span {
+        vertical-align: middle;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+
+      footer {
+        display: flex;
+        margin-top: 16px;
+        max-width: 100%;
+        flex-flow: row-reverse nowrap;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 4px;
+      }
+
+      footer button {
+        padding: 16px;
+      }
+
+      #add {
+        border: 0px none;
+        padding-left: 10vw;
+        padding-right: 10vw;
+      }
+
+      #delete {
+        border: 0px none;
+      }
+
+      @media only screen and (max-width: 599px) {
+        footer {
+          position: fixed;
+          border-radius: 0px;
+          left: 0px;
+          right: 0px;
+          bottom: 0px;
+          margin-left: 0px;
+          margin-right: 0px;
+          background: #ecebf2;
+          box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+            0 10px 10px rgba(0, 0, 0, 0.22);
+        }
+      }
     </style>
   </head>
   <body>
@@ -59,355 +124,411 @@ body {
       <div id="list">
         <!-- <div class="item"><span contenteditable="true">item</span></div> -->
       </div>
-      <button id="add" type="submit" autofocus>+</button>
-      <button id="delete" type="submit">-</button>
+      <footer id="buttons">
+        <!-- icons courtesy of uxwing.com -->
+        <button id="add" type="submit" autofocus>
+          <svg
+            class="icon icon-add"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 3593 3593"
+            shape-rendering="geometricPrecision"
+            text-rendering="geometricPrecision"
+            image-rendering="optimizeQuality"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          >
+            <path
+              d="M1654 142c0-19 4-38 11-54 7-18 18-33 31-46 26-26 61-42 101-42 19 0 38 4 54 11h1c17 7 32 18 45 30 26 26 42 61 42 101v1513h1513c19 0 38 4 54 11h1c17 7 32 18 45 30 26 26 42 61 42 101 0 19-4 38-11 54-7 18-18 33-31 46s-29 24-46 31-35 11-54 11H1939v1513c0 19-4 38-11 54v1c-7 17-18 32-30 45-26 26-61 42-101 42-19 0-38-4-54-11-18-7-33-18-46-31s-24-29-31-46-11-35-11-54V1939H142c-19 0-38-4-54-11-18-7-33-18-46-31s-24-29-31-46-11-35-11-54 4-38 11-54c7-18 18-33 31-46 26-26 61-42 101-42h1513V145v-3z"
+              fill-rule="nonzero"
+            />
+          </svg>
+          <span>Add item</span>
+        </button>
+        <button id="delete" type="submit">
+          <svg
+            class="icon icon-delete"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 640 640"
+            shape-rendering="geometricPrecision"
+            text-rendering="geometricPrecision"
+            image-rendering="optimizeQuality"
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+          >
+            <path
+              d="M63.367 47.174h173.695V32.22c0-.496.012-.969.07-1.453.39-8.291 3.97-15.815 9.462-21.284l-.036-.035c5.752-5.752 13.736-9.32 22.524-9.402l.118.012V0h103.808c.555 0 1.075.047 1.606.118a32.268 32.268 0 0 1 21.166 9.425 32.204 32.204 0 0 1 9.39 22.477l-.012.106h.071v15.048h171.487c.72 0 1.393.07 2.09.177 6.154.555 11.74 3.26 15.804 7.347l.023.035.024-.035c4.429 4.464 7.216 10.665 7.3 17.54l-.013.165h.071v56.563c0 7.666-6.224 13.878-13.89 13.878H51.874c-7.665 0-13.89-6.212-13.89-13.878V72.497c0-.555.024-1.098.095-1.642v-.106a25.47 25.47 0 0 1 7.405-16.134l-.035-.012c4.488-4.488 10.713-7.276 17.587-7.37l.165.012v-.071h.165zm379.776 208.538h-30.969V547.86h30.969V255.71zm-100.678 0h-30.98V547.86h30.98V255.71zm-100.678 0h-30.969V547.86h30.969V255.71zM94.43 164.423h455.132l1.453.095.661.035.697.06h.047l.85.117c7.1.85 13.737 4.11 18.603 8.894 5.422 5.339 8.882 12.58 8.882 20.646 0 .508-.047 1.004-.094 1.488l-.012.355-.071.803-38.504 413.202-.036.224h.036l-.083.72-.26 1.477-.012.024-.012.094c-.283 1.725-.626 3.366-1.086 4.831l-.036.118-.011.024-.048.094-.118.32-.023.105c-.615 1.843-1.37 3.638-2.244 5.256-5.256 9.792-15 16.595-27.107 16.595h-378.62l-1.287-.07v.011l-.059-.012-.165-.023c-2.398-.119-4.63-.473-6.709-1.052-2.161-.602-4.263-1.488-6.236-2.574l-.047-.012-.012.012c-9.295-5.091-15.496-15.012-16.512-26.162L63.403 196.822l-.059-.65-.059-1.287-.023-.603h-.024c0-8.09 3.46-15.342 8.894-20.68 5.079-4.973 12.083-8.328 19.559-8.99l.638-.023v-.035l1.559-.071.543.012v-.071zm455.132 27.78H94.43v-.035l-.602.023c-.85.119-1.678.556-2.28 1.158-.33.33-.543.685-.543.933h-.036l.036.614 37.925 412.73h-.011l.011.058c.166 1.96 1.052 3.603 2.327 4.3l-.012.023.437.165.331.06h379.021c1.074 0 2.078-.815 2.693-1.961l.437-1.028.283-1.122.07-.72h.025L553 194.849l-.012-.579c0-.236-.213-.579-.532-.898a4.382 4.382 0 0 0-2.35-1.18l-.543.011zm.579-.012h-.083m2.94 2.67v-.024m27.592 1.984l-.012.095M250.941 74.942H65.754v40.134h508.494V74.942H391.341c-7.666 0-13.879-6.213-13.879-13.878V32.126h.036c-.036-1.145-.555-2.256-1.347-3.047-.708-.732-1.689-1.193-2.716-1.31H269.2v-.036c-1.11.035-2.196.543-3 1.346l-.023-.024-.036.024c-.685.697-1.204 1.63-1.346 2.61l.035.532v28.843c0 7.665-6.224 13.878-13.89 13.878z"
+              fill-rule="nonzero"
+            />
+          </svg>
+          <span>Clear</span>
+        </button>
+      </footer>
     </div>
     <div id="log"></div>
     <div id="offline" class="hidden">
-      <p>Error connecting to WebSocket backend, you're fucked.</p>
+      <p>Error connecting to WebSocket backend.</p>
       <p>Maybe the server is down or it requires a password?</p>
       <p><a href="#" id="toy">Try offline mode with toy data.</a></p>
     </div>
     <script type="text/javascript">
-var protocol = (window.location.protocol === 'https:') ? 'wss:' : 'ws:';
-var host = window.location.host;
-var wsURL = protocol + '//' + host + '/';
-//var wsURL = "ws://127.0.0.1:26727";
+      var protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      var host = window.location.host;
+      var wsURL = protocol + "//" + host + "/";
 
-function log(msg) {
-  console.log(msg);
-  var div = document.getElementById('log');
-  if (div) div.innerHTML += '<p>' + msg + '</p>';
-}
-
-function logClear() { 
-  var div = document.getElementById('log');
-  if (div) div.innerHTML = '';
-}
-
-var onlineMode = function() {
-  logClear();
-  document.getElementById('container').classList.remove('hidden');
-  document.getElementById('offline').classList.add('hidden');
-}
-
-var offlineMode = function() {
-  document.getElementById('container').classList.add('hidden');
-  document.getElementById('offline').classList.remove('hidden');
-}
-
-var socket;
-var reconnectTimeout;
-var connected = false;
-var hasConnected = false;
-var password = window.location.hash.substring(1) || undefined;
-function connect() {
-  var msg = "Connecting to " + wsURL;
-  if (password) { msg += " with password '" + password + "'"; }
-  msg += " ...";
-  log(msg);
-
-  try {
-    socket = new WebSocket(wsURL, password);
-  } catch(e) {
-    offlineMode();
-    return undefined;
-  }
-
-  socket.onopen = function(open) {
-    if (!open || !open.target || open.target.readyState !== 1) {
-      if (!hasConnected)
-        offlineMode();
-      return;
-    }
-    log('Connected to ' + this.url);
-    reconnectTimeout = 10000;
-    onlineMode();
-  };
-
-  socket.onerror = function(error) {
-    console.log('socket.onerror()');
-  };
-
-  socket.onclose = function(close) {
-    console.log('socket.onclose()');
-    if (connected) {
-      if (reconnectTimeout > 10000) {
-        var div = document.getElementById('log');
-        div.children[div.children.length-1].innerHTML += " FAIL!"
-      } else {
-        log('Disconnected!');
+      function log(msg) {
+        console.log(msg);
+        var div = document.getElementById("log");
+        if (div) div.innerHTML += "<p>" + msg + "</p>";
       }
-      log('Reconnecting in ' + reconnectTimeout/1000 + ' seconds.');
 
-      setTimeout(function() { socket = connect(); }, reconnectTimeout);
-
-      if (reconnectTimeout < 40000) {
-        reconnectTimeout *= 2;
-      } else {
-        connected = false;
+      function logClear() {
+        var div = document.getElementById("log");
+        if (div) div.innerHTML = "";
       }
-    } else {
-      offlineMode();
-    }
-  };
 
-  socket.onmessage = function(message) {
-    //console.log('socket.onmessage()');
-    try {
-      var state = JSON.parse(message.data);
-      if (restoreState(state)) {
-        hasConnected = true;
-        connected = true;
-      } else {
-        console.error('Bad JSON from WebSocket server ' + this.url);
-      }
-    } catch(e) {
-      console.error(e);
-    }
-  };
+      var onlineMode = function() {
+        logClear();
+        document.getElementById("container").classList.remove("hidden");
+        document.getElementById("offline").classList.add("hidden");
+      };
 
-  return socket;
-}
-connect();
+      var offlineMode = function() {
+        document.getElementById("container").classList.add("hidden");
+        document.getElementById("offline").classList.remove("hidden");
+      };
 
-var oldState = '[]';
-function stateJSON() {
-  var state = [];
-  document.getElementById('list');
-  for (var i = 0; i < list.childElementCount; i++) {
-    var div = list.children[i];
-    var span = div.getElementsByTagName('span')[0];
-    var item = {
-      html: span.innerHTML,
-      checked: div.classList.contains('checked')
-    };
-    state.push(item);
-  }
-  return JSON.stringify(state);
-}
-
-function restoreState(state) {
-  var validateItem = function(obj) {
-    return obj.hasOwnProperty('checked') && obj.hasOwnProperty('html');
-  };
-  try {
-    if (Array.isArray(state) && state.every(validateItem)) {
-      oldState = JSON.parse(stateJSON());
-      if (oldState.length != state.length) {
-        document.getElementById('list').innerHTML = '';
-        for (var i = 0; i < state.length; i++) {
-          createListItem(state[i].html, state[i].checked);
+      var socket;
+      var reconnectTimeout;
+      var connected = false;
+      var hasConnected = false;
+      var password = window.location.hash.substring(1) || undefined;
+      function connect() {
+        var msg = "Connecting to " + wsURL;
+        if (password) {
+          msg += " with password '" + password + "'";
         }
-      } else {
-        var divs = document.getElementById('list').getElementsByTagName('div');
+        msg += " ...";
+        log(msg);
+
+        try {
+          socket = new WebSocket(wsURL, password);
+        } catch (e) {
+          offlineMode();
+          return undefined;
+        }
+
+        socket.onopen = function(open) {
+          if (!open || !open.target || open.target.readyState !== 1) {
+            if (!hasConnected) offlineMode();
+            return;
+          }
+          log("Connected to " + this.url);
+          reconnectTimeout = 10000;
+          onlineMode();
+        };
+
+        socket.onerror = function(error) {
+          console.log("socket.onerror()");
+        };
+
+        socket.onclose = function(close) {
+          console.log("socket.onclose()");
+          if (connected) {
+            if (reconnectTimeout > 10000) {
+              var div = document.getElementById("log");
+              div.children[div.children.length - 1].innerHTML += " FAIL!";
+            } else {
+              log("Disconnected!");
+            }
+            log("Reconnecting in " + reconnectTimeout / 1000 + " seconds.");
+
+            setTimeout(function() {
+              socket = connect();
+            }, reconnectTimeout);
+
+            if (reconnectTimeout < 40000) {
+              reconnectTimeout *= 2;
+            } else {
+              connected = false;
+            }
+          } else {
+            offlineMode();
+          }
+        };
+
+        socket.onmessage = function(message) {
+          //console.log('socket.onmessage()');
+          try {
+            var state = JSON.parse(message.data);
+            if (restoreState(state)) {
+              hasConnected = true;
+              connected = true;
+            } else {
+              console.error("Bad JSON from WebSocket server " + this.url);
+            }
+          } catch (e) {
+            console.error(e);
+          }
+        };
+
+        return socket;
+      }
+      connect();
+
+      var oldState = "[]";
+      function stateJSON() {
+        var state = [];
+        document.getElementById("list");
         for (var i = 0; i < list.childElementCount; i++) {
-          if (state[i].html != oldState[i].html) {
-            divs[i].firstChild.innerHTML = state[i].html;
-          }
-          if (state[i].checked != oldState[i].checked) {
-            var checked = state[i].checked;
-            divs[i].setAttribute('class', (checked ? 'item checked' : 'item'));
-          }
+          var div = list.children[i];
+          var span = div.getElementsByTagName("span")[0];
+          var item = {
+            html: span.innerHTML,
+            checked: div.classList.contains("checked")
+          };
+          state.push(item);
         }
+        return JSON.stringify(state);
       }
-      return true;
-    }
-  } catch(e) {
-    console.error(e);
-  }
-  return false;
-}
 
-function synchronize() {
-  var state = stateJSON();
-  if (state != oldState) {
-    if (connected)
-      socket.send(state);
-    oldState = state;
-  }
-}
+      function restoreState(state) {
+        var validateItem = function(obj) {
+          return obj.hasOwnProperty("checked") && obj.hasOwnProperty("html");
+        };
+        try {
+          if (Array.isArray(state) && state.every(validateItem)) {
+            oldState = JSON.parse(stateJSON());
+            if (oldState.length != state.length) {
+              document.getElementById("list").innerHTML = "";
+              for (var i = 0; i < state.length; i++) {
+                createListItem(state[i].html, state[i].checked);
+              }
+            } else {
+              var divs = document
+                .getElementById("list")
+                .getElementsByTagName("div");
+              for (var i = 0; i < list.childElementCount; i++) {
+                if (state[i].html != oldState[i].html) {
+                  divs[i].firstChild.innerHTML = state[i].html;
+                }
+                if (state[i].checked != oldState[i].checked) {
+                  var checked = state[i].checked;
+                  divs[i].setAttribute(
+                    "class",
+                    checked ? "item checked" : "item"
+                  );
+                }
+              }
+            }
+            return true;
+          }
+        } catch (e) {
+          console.error(e);
+        }
+        return false;
+      }
 
-var editTimeout = undefined;
-function createListItem(text, checked, editable) {
-  var list = document.getElementById('list');
-  var div = document.createElement('div');
-  div.setAttribute('class', (checked ? 'item checked' : 'item'));
-  var span = document.createElement('span');
-  span.setAttribute('contenteditable', (editable ? 'true' : 'false'));
-  span.setAttribute('spellcheck', 'false');
-  span.innerHTML = text;
-  span.addEventListener('keydown', function(event) {
-    if (event.keyCode == 13 && !event.shiftKey) {
-      event.preventDefault();
-      this.blur();
-    }
-  });
-  span.addEventListener('focusin', function(event) {
-    if (editTimeout) {
-      div.classList.toggle('checked');
-      clearTimeout(editTimeout);
-      editTimeout = undefined;
-    }
-  });
-  span.addEventListener('focusout', function(event) {
-    span.setAttribute('contenteditable', 'false');
-  });
-  span.addEventListener('input', synchronize);
-  div.appendChild(span);
-  list.appendChild(div);
-  return div;
-}
-
-document.getElementById('add').addEventListener('click', function(event) {
-  var div = createListItem('', false, true);
-  div.getElementsByTagName('span')[0].focus();
-  div.classList.remove('checked');
-  synchronize();
-});
-
-document.getElementById('delete').addEventListener('click', function(event) {
-  var list = document.getElementById('list');
-  var count = list.childElementCount;
-  var i = count;
-  while (i > 0) {
-    var child = list.children[i-1];
-    if (child.classList.contains('checked'))
-      list.removeChild(child);
-    i--;
-  }
-  if (count != list.childElementCount) {
-    synchronize();
-  }
-});
-
-document.getElementById('toy').addEventListener('click', function(event) {
-  document.getElementById('list').innerHTML = '';
-  createListItem('Apples');
-  createListItem('Bacon');
-  createListItem('Coke');
-  onlineMode();
-  log('OFFLINE MODE');
-});
-
-var target = undefined; // node being dragged
-var start = { x: undefined, y: undefined }; // down
-var click = true;
-
-function setTarget(element) {
-  if (target && element && target != element) {
-    // Swap target & element
-    var parent = target.parentNode;
-    if (parent) {
-      var sibling = target.nextSibling;
-      if (sibling && sibling.isSameNode(element))
-        sibling = target;
-      parent.insertBefore(parent.replaceChild(target, element), sibling);
-    }
-  } else {
-    if (target) {
-      target.classList.remove('target');
-      target = undefined;
-    }
-    if (element) {
-      target = element;
-      target.classList.add('target');
-    }
-  }
-}
-
-function checkCoordinates(xy) {
-  if (click) {
-    var dx = Math.abs(xy.x - start.x);
-    var dy = Math.abs(xy.y - start.y);
-    if (dx*dx + dy*dy > 16) {
-      click = false;
-    }
-  }
-}
-
-function pointFromEvent(event) {
-  if (event.touches && event.touches.length === 1)
-    return { x: event.touches[0].clientX, y: event.touches[0].clientY };
-  if (event.clientX && event.clientY)
-    return { x: event.clientX, y: event.clientY };
-  return undefined;
-}
-
-function itemFromPoint(x, y) {
-  var element = document.elementFromPoint(x, y);
-  if (element && element.tagName == 'SPAN')
-    element = element.parentElement;
-  return (element && element.tagName == 'DIV'
-                  && element.classList.contains('item')
-                  && element != target) ? element : undefined;
-}
-
-function onstart(event) {
-  document.activeElement.blur();
-  var xy = pointFromEvent(event);
-  if (xy) {
-    var item = itemFromPoint(xy.x, xy.y);
-    if (item) {
-      var span = document.elementFromPoint(xy.x, xy.y);
-      if (span && span.tagName == 'SPAN') {
-        if (span.getAttribute('contenteditable') == 'true') {
-          return;
+      function synchronize() {
+        var state = stateJSON();
+        if (state != oldState) {
+          if (connected) socket.send(state);
+          oldState = state;
         }
       }
 
-      if (target != item) {
-        start = xy;
-        click = true;
-        setTarget(item);
-        event.preventDefault();
+      var editTimeout = undefined;
+      function createListItem(text, checked, editable) {
+        var list = document.getElementById("list");
+        var div = document.createElement("div");
+        div.setAttribute("class", checked ? "item checked" : "item");
+        var span = document.createElement("span");
+        span.setAttribute("contenteditable", editable ? "true" : "false");
+        span.setAttribute("spellcheck", "false");
+        span.innerHTML = text;
+        span.addEventListener("keydown", function(event) {
+          if (event.keyCode == 13 && !event.shiftKey) {
+            event.preventDefault();
+            this.blur();
+          }
+        });
+        span.addEventListener("focusin", function(event) {
+          if (editTimeout) {
+            div.classList.toggle("checked");
+            clearTimeout(editTimeout);
+            editTimeout = undefined;
+          }
+        });
+        span.addEventListener("focusout", function(event) {
+          span.setAttribute("contenteditable", "false");
+        });
+        span.addEventListener("input", synchronize);
+        div.appendChild(span);
+        list.appendChild(div);
+        return div;
       }
-    }
-  }
-}
-document.addEventListener('mousedown', onstart);
-document.addEventListener('touchstart', onstart, { passive: false });
 
-function onmove(event) {
-  if (target) {
-    var xy = pointFromEvent(event);
-    if (xy) {
-      checkCoordinates(xy);
-      var item = itemFromPoint(xy.x, xy.y);
-      if (item) {
-        setTarget(item);
-        event.preventDefault();
+      document.getElementById("add").addEventListener("click", function(event) {
+        event.stopPropagation();
+        var div = createListItem("", false, true);
+        div.getElementsByTagName("span")[0].focus();
+        div.classList.remove("checked");
+        synchronize();
+      });
+
+      document
+        .getElementById("delete")
+        .addEventListener("click", function(event) {
+          event.stopPropagation();
+          var list = document.getElementById("list");
+          var count = list.childElementCount;
+          var i = count;
+          while (i > 0) {
+            var child = list.children[i - 1];
+            var checked = child.classList.contains("checked");
+            var span = child.getElementsByTagName("span")[0];
+            if (checked || span.innerHTML === "") {
+              list.removeChild(child);
+            }
+            i--;
+          }
+          if (count != list.childElementCount) {
+            synchronize();
+          }
+        });
+
+      document.getElementById("toy").addEventListener("click", function(event) {
+        document.getElementById("list").innerHTML = "";
+        createListItem("Apples");
+        createListItem("Bacon");
+        createListItem("Coke");
+        onlineMode();
+        log("OFFLINE MODE");
+      });
+
+      var target = undefined; // node being dragged
+      var start = { x: undefined, y: undefined }; // down
+      var click = true;
+
+      function setTarget(element) {
+        if (target && element && target != element) {
+          // Swap target & element
+          var parent = target.parentNode;
+          if (parent) {
+            var sibling = target.nextSibling;
+            if (sibling && sibling.isSameNode(element)) sibling = target;
+            parent.insertBefore(parent.replaceChild(target, element), sibling);
+          }
+        } else {
+          if (target) {
+            target.classList.remove("target");
+            target = undefined;
+          }
+          if (element) {
+            target = element;
+            target.classList.add("target");
+          }
+        }
       }
-    }
-  }
-}
-document.addEventListener('mousemove', onmove);
-document.addEventListener('touchmove', onmove, { passive: false });
 
-function onend(event) {
-  if (target) {
-    var xy = pointFromEvent(event);
-    if (xy) checkCoordinates(xy);
-    if (click) {
-      var span = target.getElementsByTagName('span')[0];
-      if (span && span.getAttribute('contenteditable') != 'true') {
-        span.setAttribute('contenteditable', 'true');
-        target.classList.toggle('checked');
-        editTimeout = setTimeout(function() {
-          span.setAttribute('contenteditable', 'false');
-        }, 1000);
-      } else {
-        target.classList.toggle('checked');
+      function checkCoordinates(xy) {
+        if (click) {
+          var dx = Math.abs(xy.x - start.x);
+          var dy = Math.abs(xy.y - start.y);
+          if (dx * dx + dy * dy > 16) {
+            click = false;
+          }
+        }
       }
-    }
-  }
 
-  setTarget(null);
-  synchronize();
-}
-document.addEventListener('mouseup', onend);
-document.addEventListener('touchcancel', onend);
-document.addEventListener('touchend', onend);
+      function pointFromEvent(event) {
+        if (event.touches && event.touches.length === 1)
+          return { x: event.touches[0].clientX, y: event.touches[0].clientY };
+        if (event.clientX && event.clientY)
+          return { x: event.clientX, y: event.clientY };
+        return undefined;
+      }
+
+      function itemFromPoint(x, y) {
+        var element = document.elementFromPoint(x, y);
+        if (element && element.tagName == "SPAN")
+          element = element.parentElement;
+        return element &&
+          element.tagName == "DIV" &&
+          element.classList.contains("item") &&
+          element != target
+          ? element
+          : undefined;
+      }
+
+      function onstart(event) {
+        document.activeElement.blur();
+        var xy = pointFromEvent(event);
+        if (xy) {
+          var item = itemFromPoint(xy.x, xy.y);
+          if (item) {
+            var span = document.elementFromPoint(xy.x, xy.y);
+            if (span && span.tagName == "SPAN") {
+              if (span.getAttribute("contenteditable") == "true") {
+                return;
+              }
+            }
+
+            if (target != item) {
+              start = xy;
+              click = true;
+              setTarget(item);
+              event.preventDefault();
+            }
+          }
+        }
+      }
+      document.addEventListener("mousedown", onstart);
+      document.addEventListener("touchstart", onstart, { passive: false });
+
+      function onmove(event) {
+        if (target) {
+          var xy = pointFromEvent(event);
+          if (xy) {
+            checkCoordinates(xy);
+            var item = itemFromPoint(xy.x, xy.y);
+            if (item) {
+              setTarget(item);
+              event.preventDefault();
+            }
+          }
+        }
+      }
+      document.addEventListener("mousemove", onmove);
+      document.addEventListener("touchmove", onmove, { passive: false });
+
+      function onend(event) {
+        if (target) {
+          var xy = pointFromEvent(event);
+          if (xy) checkCoordinates(xy);
+          if (click) {
+            var span = target.getElementsByTagName("span")[0];
+            if (span && span.getAttribute("contenteditable") != "true") {
+              span.setAttribute("contenteditable", "true");
+              target.classList.toggle("checked");
+              editTimeout = setTimeout(function() {
+                span.setAttribute("contenteditable", "false");
+              }, 1000);
+            } else {
+              target.classList.toggle("checked");
+            }
+          }
+        }
+
+        setTarget(null);
+        synchronize();
+      }
+      document.addEventListener("mouseup", onend);
+      document.addEventListener("touchcancel", onend);
+      document.addEventListener("touchend", onend);
     </script>
   </body>
 </html>

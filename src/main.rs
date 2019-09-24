@@ -42,6 +42,9 @@ use std::rc::Rc;
 type StateRef = Rc<RefCell<State>>;
 
 static INDEX: &'static [u8] = include_bytes!("index.html");
+static WEBMANIFEST: &'static [u8] = include_bytes!("webmanifest.json");
+static ICON32: &'static [u8] = include_bytes!("icon32.png");
+static ICON64: &'static [u8] = include_bytes!("icon64.png");
 static NOTFOUND: &'static [u8] = b"404";
 
 fn handle_http<I>(io: I) -> impl Future<Item=RewindStream<I>, Error=()>
@@ -61,6 +64,27 @@ where I: AsyncRead + AsyncWrite + 'static
                 let mut response = Response::builder();
                 response.header(header::CONTENT_TYPE, "text/html").status(StatusCode::OK);
                 response.body(Body::from(INDEX)).or(Err("error"))
+            },
+            (&Method::GET, "/kuppalista.webmanifest") => {
+                let mut response = Response::builder();
+                response
+                    .header(header::CONTENT_TYPE, "application/manifest+json")
+                    .status(StatusCode::OK);
+                response.body(Body::from(WEBMANIFEST)).or(Err("error"))
+            },
+            (&Method::GET, "/icons/icon-32.png") => {
+                let mut response = Response::builder();
+                response
+                    .header(header::CONTENT_TYPE, "image/png")
+                    .status(StatusCode::OK);
+                response.body(Body::from(ICON32)).or(Err("error"))
+            },
+            (&Method::GET, "/icons/icon-64.png") => {
+                let mut response = Response::builder();
+                response
+                    .header(header::CONTENT_TYPE, "image/png")
+                    .status(StatusCode::OK);
+                response.body(Body::from(ICON64)).or(Err("error"))
             },
             _ => {
                 let mut response = Response::builder();
