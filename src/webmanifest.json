@@ -9,9 +9,14 @@
       "type": "image/png"
     },
     {
-      "src": "/icons/icon-64.png",
-      "sizes": "64x64",
+      "src": "/icons/icon-32.png",
+      "sizes": "32x32",
       "type": "image/png"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
     }
   ],
   "display": "fullscreen",

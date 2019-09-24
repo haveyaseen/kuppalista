@@ -43,6 +43,7 @@ type StateRef = Rc<RefCell<State>>;
 
 static INDEX: &'static [u8] = include_bytes!("index.html");
 static WEBMANIFEST: &'static [u8] = include_bytes!("webmanifest.json");
+static FAVICON: &'static [u8] = include_bytes!("favicon.ico");
 static ICON32: &'static [u8] = include_bytes!("icon32.png");
 static ICON64: &'static [u8] = include_bytes!("icon64.png");
 static NOTFOUND: &'static [u8] = b"404";
@@ -71,6 +72,13 @@ where I: AsyncRead + AsyncWrite + 'static
                     .header(header::CONTENT_TYPE, "application/manifest+json")
                     .status(StatusCode::OK);
                 response.body(Body::from(WEBMANIFEST)).or(Err("error"))
+            },
+            (&Method::GET, "/favicon.ico") => {
+                let mut response = Response::builder();
+                response
+                    .header(header::CONTENT_TYPE, "image/x-icon")
+                    .status(StatusCode::OK);
+                response.body(Body::from(FAVICON)).or(Err("error"))
             },
             (&Method::GET, "/icons/icon-32.png") => {
                 let mut response = Response::builder();
