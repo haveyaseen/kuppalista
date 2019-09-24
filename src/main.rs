@@ -46,6 +46,7 @@ static WEBMANIFEST: &'static [u8] = include_bytes!("webmanifest.json");
 static FAVICON: &'static [u8] = include_bytes!("favicon.ico");
 static ICON32: &'static [u8] = include_bytes!("icon32.png");
 static ICON64: &'static [u8] = include_bytes!("icon64.png");
+static ICON512: &'static [u8] = include_bytes!("icon512.png");
 static NOTFOUND: &'static [u8] = b"404";
 
 fn handle_http<I>(io: I) -> impl Future<Item=RewindStream<I>, Error=()>
@@ -93,6 +94,13 @@ where I: AsyncRead + AsyncWrite + 'static
                     .header(header::CONTENT_TYPE, "image/png")
                     .status(StatusCode::OK);
                 response.body(Body::from(ICON64)).or(Err("error"))
+            },
+            (&Method::GET, "/icons/icon-512.png") => {
+                let mut response = Response::builder();
+                response
+                    .header(header::CONTENT_TYPE, "image/png")
+                    .status(StatusCode::OK);
+                response.body(Body::from(ICON512)).or(Err("error"))
             },
             _ => {
                 let mut response = Response::builder();
