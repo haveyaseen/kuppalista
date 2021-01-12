@@ -5,7 +5,7 @@ authors = ["def <def@huumeet.info>"]
 description = "Real-time shopping list"
 
 [dependencies]
-bytes = "0.4"
+bytes = "1.0"
 fs2 = "0.4"
 futures = "0.1"
 httparse = "1.3"
